@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 import util.XMLUtil;
 
-public class PropertyConfig {
-	private final String fileName = "EntityType";
+public class PropertyConfig extends Config{
+	private final String fileName = "PropertyType";
 	private static PropertyConfig PropertyConfig = null; 
-	private static XMLUtil xmlUtil;
-	public PropertyConfig() {
+	private PropertyConfig() {
 		// TODO Auto-generated constructor stub
 		xmlUtil = new XMLUtil(fileName);
 	}

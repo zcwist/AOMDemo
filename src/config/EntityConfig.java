@@ -6,11 +6,11 @@ import util.XMLUtil;
 
 
 
-public class EntityConfig{
+public class EntityConfig extends Config{
 	private final String fileName = "EntityType";
 	private static EntityConfig entityConfig = null; 
-	private static XMLUtil xmlUtil;
-	public EntityConfig() {
+	
+	private EntityConfig() {
 		// TODO Auto-generated constructor stub
 		xmlUtil = new XMLUtil(fileName);
 	}

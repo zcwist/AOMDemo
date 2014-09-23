@@ -59,6 +59,7 @@ public class XMLUtil {
 		for (int i = 0; i < nl.getLength(); i++){
 			Element element = (Element)nl.item(i);
 			NodeList keyList = element.getElementsByTagName("Name");
+			
 			String keyString = keyList.item(0).getFirstChild().getNodeValue();
 			if (keyString.equalsIgnoreCase(key)){
 				

@@ -12,8 +12,8 @@ public class Tester {
 	}
 
 	public void test1(){
-		System.out.println(EntityConfig.getInstance().getEntityList().get(0));
-		System.out.println(EntityConfig.getInstance().getPropertyListByEntityName("Sheet").get(0));
+//		System.out.println(EntityConfig.getInstance().getEntityList().get(0));
+//		System.out.println(EntityConfig.getInstance().getPropertyListByEntityName("Sheet").get(0));
 		System.out.println(PropertyConfig.getInstance().getPropertyList().get(0));
 		System.out.println(PropertyConfig.getInstance().getPropertyTypeByName("Currency"));
 	}
