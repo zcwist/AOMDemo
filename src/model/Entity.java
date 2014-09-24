@@ -20,10 +20,4 @@ public class Entity {
 	public void setProperties(List<Property> properties) {
 		this.properties = properties;
 	}
-	public Entity() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-
 }
