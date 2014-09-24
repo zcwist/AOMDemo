@@ -19,5 +19,7 @@
 			<attribute name="owner.project.facets" value="jst.web.jstl"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mongo-2.10.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-3.11-beta2-20140822.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
