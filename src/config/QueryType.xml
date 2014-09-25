@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QueryType>
+	<Query>
+		<Name>Query1</Name>
+		<InputProperty>编号</InputProperty>
+		<InputProperty>面额</InputProperty>
+		<OutputProperty>介质类型</OutputProperty>
+	</Query>
+</QueryType>

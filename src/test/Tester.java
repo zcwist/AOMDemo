@@ -3,15 +3,18 @@ package test;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import util.ExcelUtil;
 import model.Entity;
 import model.EntityBuilder;
 import model.Property;
 import model.PropertyType;
+import model.Query;
+import util.ExcelUtil;
 import config.EntityConfig;
 import config.PropertyConfig;
+import config.QueryConfig;
 import controller.EntityController;
 import dao.EntityDao;
 
@@ -19,7 +22,7 @@ public class Tester {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new Tester().test3();
+		new Tester().test4();
 
 	}
 
@@ -58,7 +61,8 @@ public class Tester {
 		
 	}
 	public void test3(){
-		ExcelUtil excel = new ExcelUtil("材料分类","D:/","demo");
+		//xls to db
+		ExcelUtil excel = new ExcelUtil("材料分类","D:/","材料分类");
 		try {
 			excel.xls2DB();
 		} catch (IOException e) {
@@ -66,5 +70,27 @@ public class Tester {
 			e.printStackTrace();
 		}
 	}
-	
+	public void test4(){
+		//test the QueryConfig reading
+//		System.out.println(QueryConfig.getInstance().getInputPropertyListByQueryType("Query1").get(0));
+//		System.out.println(QueryConfig.getInstance().getOutputPropertyListByQueryType("Query1").get(0));
+//		System.out.println(QueryConfig.getInstance().getQueryTypeList().get(0));
+		
+		HashMap<String, String> inputProperty = new HashMap<String, String>();
+//		inputProperty.put("编号", "V17176443862");
+		inputProperty.put("面额", "5");
+		Query query = new Query("Query1", inputProperty);
+		EntityDao entityDao = null;
+		try {
+			entityDao = new EntityDao();
+			ArrayList<Query> resultItem = entityDao.runAQuery(query);
+			System.out.println(resultItem.get(0).getOutputProperty().get("介质类型"));
+			
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			entityDao.destroy();
+		}
+	}
 }

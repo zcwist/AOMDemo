@@ -1,12 +1,16 @@
 package dao;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import model.Entity;
 import model.Property;
+import model.Query;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 public class EntityDao extends MongoWrapper{
 	private final String COLLNAME = "entity_property_list";
@@ -37,6 +41,26 @@ public class EntityDao extends MongoWrapper{
 		obj.append("Properties", properties);
 		
 		return obj;
+	}
+	
+	public ArrayList<Query> runAQuery(Query query){
+		ArrayList<Query> queryList = new ArrayList<Query>();
+		try {
+			DBCollection coll = db.getCollection(COLLNAME);
+			DBCursor cur = coll.find(query.queryObj());
+			while (cur.hasNext()){
+				DBObject object = cur.next();
+				Query item = new Query(query.getQueryType(), query.getInputProperty());
+				item.generateOutput(object);
+				queryList.add(item);
+				
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		return queryList;
 	}
 
 }

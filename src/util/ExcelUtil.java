@@ -96,9 +96,11 @@ public class ExcelUtil {
 		for (int i = 0; i < row.getLastCellNum(); i ++){
 			String title = rowTitle.getCell(i).getStringCellValue();
 			PropertyType propertyType = new PropertyType(title);
-			row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
-			Property property = new Property(propertyType,row.getCell(i).getStringCellValue());
-			propertyList.add(property);
+			if (row.getCell(i) != null){
+				row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+				Property property = new Property(propertyType,row.getCell(i).getStringCellValue());
+				propertyList.add(property);
+			}
 		}
 		EntityBuilder eb = new EntityBuilder(entityType, propertyList);
 		EntityController ec = new EntityController();
