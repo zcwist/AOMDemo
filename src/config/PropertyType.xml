@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PropertyType>
 	<Property>	
-		<Name>Currency</Name>
+		<Name>编号</Name>
+		<Type>String</Type>
+	</Property>
+	<Property>	
+		<Name>介质类型</Name>
+		<Type>String</Type>
+	</Property>
+	<Property>	
+		<Name>面额</Name>
+		<Type>String</Type>
+	</Property>
+	<Property>	
+		<Name>新旧程度</Name>
 		<Type>String</Type>
 	</Property>
 </PropertyType>

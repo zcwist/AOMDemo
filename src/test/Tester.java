@@ -1,5 +1,6 @@
 package test;
 
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +58,13 @@ public class Tester {
 		
 	}
 	public void test3(){
-		new ExcelUtil().generateAXlsByEntity(EntityConfig.getInstance().getEntityList().get(0));
+		ExcelUtil excel = new ExcelUtil("≤ƒ¡œ∑÷¿‡","D:/","demo");
+		try {
+			excel.xls2DB();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
 }

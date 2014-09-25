@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EntityType>
 	<Entity>
-		<Name>Sheet</Name>
-		<Property>Currency</Property>
+		<Name>材料分类</Name>
+		<Property>编号</Property>
+		<Property>介质类型</Property>
+		<Property>面额</Property>
+		<Property>新旧程度</Property>
 	</Entity>
 </EntityType>
