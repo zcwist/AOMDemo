@@ -57,6 +57,6 @@ public class Tester {
 		
 	}
 	public void test3(){
-		new ExcelUtil().test();
+		new ExcelUtil().generateAXlsByEntity(EntityConfig.getInstance().getEntityList().get(0));
 	}
 }
