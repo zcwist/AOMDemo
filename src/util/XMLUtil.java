@@ -13,6 +13,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import config.RootPath;
+
 
 public class XMLUtil {
 	private Document doc;
@@ -24,6 +26,7 @@ public class XMLUtil {
 	private void buildXmlFile(){
 		DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
 		String path = "src/config/";
+		path = RootPath.getInstance().getRoot() + "/WEB-INF/";
 		try {
 			DocumentBuilder builder = dFactory.newDocumentBuilder();
 			this.doc = builder.parse(new File(path + xmlFileName + ".xml"));

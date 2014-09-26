@@ -12,6 +12,7 @@ import model.Property;
 import model.PropertyType;
 import model.Query;
 import util.ExcelUtil;
+import util.Transformer;
 import config.EntityConfig;
 import config.PropertyConfig;
 import config.QueryConfig;
@@ -22,15 +23,16 @@ public class Tester {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new Tester().test4();
+		new Tester().test1();
 
 	}
 
 	public void test1(){
-		System.out.println(EntityConfig.getInstance().getEntityList().get(0));
-		System.out.println(EntityConfig.getInstance().getPropertyListByEntityName("Sheet").get(0));
-		System.out.println(PropertyConfig.getInstance().getPropertyList().get(0));
-		System.out.println(PropertyConfig.getInstance().getPropertyTypeByName("Currency"));
+//		System.out.println(EntityConfig.getInstance().getEntityList().get(0));
+//		System.out.println(EntityConfig.getInstance().getPropertyListByEntityName("材料分类").get(0));
+//		System.out.println(PropertyConfig.getInstance().getPropertyList().get(0));
+//		System.out.println(PropertyConfig.getInstance().getPropertyTypeByName("Currency"));
+//		System.out.println(Transformer.array2Json(EntityConfig.getInstance().getPropertyListByEntityName("材料分类")));
 	}
 	public void test2(){
 		String type = EntityConfig.getInstance().getEntityList().get(0);
