@@ -2,16 +2,17 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
-import util.Transformer;
-import config.EntityConfig;
 import config.RootPath;
 
 public class ForAjax extends HttpServlet {
@@ -61,12 +62,22 @@ public class ForAjax extends HttpServlet {
 
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
+//		try {
+//			out.println(Transformer.array2Json("value", EntityConfig.getInstance().getPropertyListByEntityName("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")));
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		JSONObject obj = new JSONObject();
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("wo");
 		try {
-			out.println(Transformer.array2Json("value", EntityConfig.getInstance().getPropertyListByEntityName("²ÄÁÏ·ÖÀà")));
+			obj.put("value", new JSONArray(list));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		out.println(obj);
 		out.flush();
 		out.close();
 	}

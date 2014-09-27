@@ -1,3 +1,4 @@
+
 package test;
 
 import java.io.IOException;
@@ -11,11 +12,14 @@ import model.EntityBuilder;
 import model.Property;
 import model.PropertyType;
 import model.Query;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import util.ExcelUtil;
-import util.Transformer;
 import config.EntityConfig;
 import config.PropertyConfig;
-import config.QueryConfig;
 import controller.EntityController;
 import dao.EntityDao;
 
@@ -23,16 +27,16 @@ public class Tester {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new Tester().test1();
+		new Tester().test5();
 
 	}
 
 	public void test1(){
 //		System.out.println(EntityConfig.getInstance().getEntityList().get(0));
-//		System.out.println(EntityConfig.getInstance().getPropertyListByEntityName("²ÄÁÏ·ÖÀà").get(0));
+//		System.out.println(EntityConfig.getInstance().getPropertyListByEntityName("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½").get(0));
 //		System.out.println(PropertyConfig.getInstance().getPropertyList().get(0));
 //		System.out.println(PropertyConfig.getInstance().getPropertyTypeByName("Currency"));
-//		System.out.println(Transformer.array2Json(EntityConfig.getInstance().getPropertyListByEntityName("²ÄÁÏ·ÖÀà")));
+//		System.out.println(Transformer.array2Json(EntityConfig.getInstance().getPropertyListByEntityName("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")));
 	}
 	public void test2(){
 		String type = EntityConfig.getInstance().getEntityList().get(0);
@@ -64,7 +68,7 @@ public class Tester {
 	}
 	public void test3(){
 		//xls to db
-		ExcelUtil excel = new ExcelUtil("²ÄÁÏ·ÖÀà","D:/","²ÄÁÏ·ÖÀà");
+		ExcelUtil excel = new ExcelUtil("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","D:/","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		try {
 			excel.xls2DB();
 		} catch (IOException e) {
@@ -79,20 +83,28 @@ public class Tester {
 //		System.out.println(QueryConfig.getInstance().getQueryTypeList().get(0));
 		
 		HashMap<String, String> inputProperty = new HashMap<String, String>();
-//		inputProperty.put("±àºÅ", "V17176443862");
-		inputProperty.put("Ãæ¶î", "5");
+//		inputProperty.put("ï¿½ï¿½ï¿½ï¿½", "V17176443862");
+		inputProperty.put("ï¿½ï¿½ï¿½ï¿½", "5");
 		Query query = new Query("Query1", inputProperty);
 		EntityDao entityDao = null;
 		try {
 			entityDao = new EntityDao();
 			ArrayList<Query> resultItem = entityDao.runAQuery(query);
-			System.out.println(resultItem.get(0).getOutputProperty().get("½éÖÊÀàÐÍ"));
+			System.out.println(resultItem.get(0).getOutputProperty().get("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"));
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally{
 			entityDao.destroy();
+		}
+	}
+	public void test5(){
+		try {
+			System.out.println(new JSONObject().put("value", new JSONArray()));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

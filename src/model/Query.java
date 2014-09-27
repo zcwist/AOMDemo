@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;

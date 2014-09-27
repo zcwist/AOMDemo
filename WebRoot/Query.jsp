@@ -10,9 +10,24 @@
 		<script type="text/javascript">
 			   $(document).ready(function() {
 					$("#b01").click(function() {
-					 	htmlObj = $.ajax({url: 'http://localhost:8080/AOMDemo/index.jsp', async:false});
-						console.log(htmlObj.responseText);
-						$("#myDiv").html(htmlObj.responseText);
+					 // 	htmlObj = $.ajax({url: 'http://localhost:8080/AOMDemo/servlet/ForAjax', async:false});
+						// console.log(htmlObj.responseText);
+						// data = eval(htmlObj.responseText);
+						// $.each(data.value, function(index, val) {
+						// 	$("myDiv").append(
+						// 		'<div>' + value + "/<div>"
+						// 		);
+						// });
+						// $("#myDiv").html(htmlObj.responseText);
+						var json = {}
+						$.getJSON('http://localhost:8080/AOMDemo/servlet/ForAjax', function(json, textStatus) {
+								/*optional stuff to do after success */
+								console.log(json);
+								$.each(json.value, function(index, val) {
+									 /* iterate through array or object */
+									 console.log(val);
+								});
+						});
 					});
 					
 			   });
