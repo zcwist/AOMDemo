@@ -13,6 +13,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import util.Transformer;
+import config.EntityConfig;
+import config.QueryConfig;
 import config.RootPath;
 
 public class ForAjax extends HttpServlet {
@@ -59,25 +62,46 @@ public class ForAjax extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setCharacterEncoding("utf-8");
 		response.setContentType("application/json; charset=utf-8");
+		String command = request.getParameter("Command");
 		PrintWriter out = response.getWriter();
-//		try {
-//			out.println(Transformer.array2Json("value", EntityConfig.getInstance().getPropertyListByEntityName("��������")));
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		JSONObject obj = new JSONObject();
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("wo");
-		try {
-			obj.put("value", new JSONArray(list));
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (command.equals("getQueryType")){
+			try{
+				out.println(Transformer.array2Json("value", QueryConfig.getInstance().getQueryTypeList()));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		out.println(obj);
+		else if (command.equals("getPropertyList")){
+			String queryType = request.getParameter("QueryType");
+			try{
+				out.println(Transformer.array2Json("value", QueryConfig.getInstance().getInputPropertyListByQueryType(queryType)));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}else if (command.equals("getQueryResult")){
+			try {
+				JSONObject queryData = new JSONObject(request.getParameter("QueryData"));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+		}
+		
+		
+		
+		
+
+		
+		
+
 		out.flush();
 		out.close();
 	}

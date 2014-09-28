@@ -10,25 +10,43 @@
 		<script type="text/javascript">
 			   $(document).ready(function() {
 					$("#b01").click(function() {
-					 // 	htmlObj = $.ajax({url: 'http://localhost:8080/AOMDemo/servlet/ForAjax', async:false});
-						// console.log(htmlObj.responseText);
-						// data = eval(htmlObj.responseText);
-						// $.each(data.value, function(index, val) {
-						// 	$("myDiv").append(
-						// 		'<div>' + value + "/<div>"
-						// 		);
+						var data = {}
+						// $.getJSON('http://localhost:8080/AOMDemo/servlet/ForAjax', function(json, textStatus) {
+						// 		$("#myDiv").html(json);
+
+						// 		console.log(json2formGroup(json));
+						// 		$("#myDiv").html(json2formGroup(json))
 						// });
-						// $("#myDiv").html(htmlObj.responseText);
-						var json = {}
-						$.getJSON('http://localhost:8080/AOMDemo/servlet/ForAjax', function(json, textStatus) {
-								/*optional stuff to do after success */
-								console.log(json);
-								$.each(json.value, function(index, val) {
-									 /* iterate through array or object */
-									 console.log(val);
-								});
+						$.post('http://localhost:8080/AOMDemo/servlet/ForAjax', {Command: 'getQueryType'}, function(data, textStatus, xhr) {
+						/*optional stuff to do after success */
+							console.log(data);
+							if (textStatus == 'success'){
+								$("#myDiv").html(json2formGroup(data));
+
+
+							}
 						});
 					});
+					
+					function json2formGroup(json){
+						s = '<form role="form">';
+						$.each(json.value, function(index, val) {
+							s += '<div class="form-group">';
+							s += '<label for="' + val +'">' + val + '</label>';
+							s += '<input type="text" class="form-control" + id="' + val + '" placeholder="">';
+							s += "</div>";
+							});
+						s += '<button type="submit" class="btn btn-default">Submit</button>';
+						s += '</form>';
+						console.log(s);
+						return s;
+					}
+
+					function json2QueryTypeList(json){
+						$.each(json.value, function(index, val) {
+							 s = ""
+						});
+					}
 					
 			   });
 		  </script>
@@ -38,14 +56,14 @@
 		<div class="container">
 			<div class="btn-group">
 				<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-				Success <span class="caret"></span>
+				查询类型 <span class="caret"></span>
 				</button>
-				<ul class="dropdown-menu">
-					<li><a href="#">Action</a></li>
+				<ul class="dropdown-menu" id="queryType">
+<!-- 					<li><a href="#">Action</a></li>
 					<li><a href="#">Another action</a></li>
 					<li><a href="#">Something else here</a></li>
 					<li class="divider"></li>
-					<li><a href="#">Separated link</a></li>
+					<li><a href="#">Separated link</a></li> -->
 				</ul>
 			</div>
 			<button type="button" class="btn btn-success" id="b01">click</button>
