@@ -22,7 +22,9 @@
 					</ul>
 				</div>
 				<div class="col-md-2" id="queryTypeName"></div>
-				<!-- <button type="button" class="btn btn-success" id="b01">click</button> -->
+				<div class="col-md-2 col-md-offset-6">
+					<button type="button" class="btn btn-success" id="update">更新配置</button>
+				</div>
 				
 			</div>
 			<div class="row">

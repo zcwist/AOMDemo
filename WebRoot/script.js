@@ -1,28 +1,42 @@
 
 $(document).ready(function() {
 	var data = {};
-	$.post('http://localhost:8080/AOMDemo/servlet/ForAjax', {Command: 'getQueryType'}, function(data, textStatus, xhr){
-		if (textStatus == 'success'){
-			console.log(data);
-			$("#queryType").html(json2QueryTypeList(data));
-			$("#queryType li a").bind('click', function() {
-				/* Act on the event */
-				console.log($(this).html());
+	function generateQueryTypeList(){
+		$.post('http://localhost:8080/AOMDemo/servlet/ForAjax', {Command: 'getQueryType'}, function(data, textStatus, xhr){
+			if (textStatus == 'success'){
+				console.log(data);
+				$("#queryType").html(json2QueryTypeList(data));
+				$("#queryType li a").bind('click', function() {
+					/* Act on the event */
+					console.log($(this).html());
 
-				queryType = $(this).html();
-				$("#queryTypeName").html(queryType);
-				var propertyListData = {};
-				$.post('http://localhost:8080/AOMDemo/servlet/ForAjax', {Command: 'getPropertyList', QueryType: queryType}, function(propertyListData, textStatus, xhr) {
-				/*optional stuff to do after success */
-					console.log(propertyListData);
-					if (textStatus == 'success'){
-						$("#inputPropertyList").html(json2formGroup(propertyListData));
-					}
+					queryType = $(this).html();
+					$("#queryTypeName").html(queryType);
+					var propertyListData = {};
+					$.post('http://localhost:8080/AOMDemo/servlet/ForAjax', {Command: 'getPropertyList', QueryType: queryType}, function(propertyListData, textStatus, xhr) {
+					/*optional stuff to do after success */
+						console.log(propertyListData);
+						if (textStatus == 'success'){
+							$("#inputPropertyList").html(json2formGroup(propertyListData));
+						}
+					});
+
+
 				});
-
-
-			});
-		}
+			}
+		});
+	}
+	generateQueryTypeList();
+	$("#update").click(function() {
+		var data = {};
+		$.post('http://localhost:8080/AOMDemo/servlet/ForAjax', {Command: 'update'}, function(data, textStatus, xhr) {
+			/*optional stuff to do after success */
+			console.log('Updating');
+			if (textStatus == 'success'){
+				generateQueryTypeList();
+				alert('配置文件升级成功');
+			}
+		});
 	});
 	// $("#b01").click(function() {
 	// 	var data = {}
@@ -49,7 +63,7 @@ $(document).ready(function() {
 			s += '<input type="text" class="form-control" + id="' + val + '" placeholder="">';
 			s += "</div>";
 			});
-		s += '<button type="submit" class="btn btn-default">Submit</button>';
+		s += '<button type="submit" class="btn btn-default">查询</button>';
 		s += '</form>';
 		console.log(s);
 		return s;

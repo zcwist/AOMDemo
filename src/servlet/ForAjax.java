@@ -90,9 +90,11 @@ public class ForAjax extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-			
+		}else if (command.equals("update")){
+			System.out.println("Updating");
+			QueryConfig.getInstance().update();
+			System.out.println("Updated");
+			out.println("{}");
 		}
 		
 		
