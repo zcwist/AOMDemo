@@ -6,4 +6,10 @@
 		<InputProperty>面额</InputProperty>
 		<OutputProperty>介质类型</OutputProperty>
 	</Query>
+	<Query>
+		<Name>Query2</Name>
+		<InputProperty>介质类型</InputProperty>
+		<InputProperty>面额</InputProperty>
+		<OutputProperty>编号</OutputProperty>
+	</Query>
 </QueryType>
