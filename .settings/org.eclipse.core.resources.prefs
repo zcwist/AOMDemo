@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/dao/EntityDao.java=UTF-8
 encoding//src/servlet/ForAjax.java=UTF-8
 encoding//src/test/Tester.java=UTF-8
 encoding/<project>=ISO-8859-1

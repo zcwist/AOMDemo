@@ -48,6 +48,9 @@ public class EntityDao extends MongoWrapper{
 		try {
 			DBCollection coll = db.getCollection(COLLNAME);
 			DBCursor cur = coll.find(query.queryObj());
+			
+			
+			
 			while (cur.hasNext()){
 				DBObject object = cur.next();
 				Query item = new Query(query.getQueryType(), query.getInputProperty());

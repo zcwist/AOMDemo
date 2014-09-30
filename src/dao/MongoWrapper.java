@@ -19,8 +19,12 @@ public class MongoWrapper {
 	}
 	
 	public void destroy(){
+		mongoClient.close();
 		if (mongoClient != null){
 			mongoClient = null;
+		}
+		if (db != null){
+			db = null;
 		}
 	}
 	

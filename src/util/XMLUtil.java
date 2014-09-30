@@ -26,6 +26,7 @@ public class XMLUtil {
 	private void buildXmlFile(){
 		DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
 		String path = "src/config/";
+//		path = "WEB-INF/";
 		path = RootPath.getInstance().getRoot() + "/WEB-INF/";
 		try {
 			DocumentBuilder builder = dFactory.newDocumentBuilder();

@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import util.ExcelUtil;
 import config.EntityConfig;
 import config.PropertyConfig;
+import config.RootPath;
 import controller.EntityController;
 import dao.EntityDao;
 
@@ -27,7 +28,8 @@ public class Tester {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new Tester().test5();
+		RootPath.getInstance().setRoot("WebRoot");
+		new Tester().test4();
 
 	}
 
@@ -83,14 +85,15 @@ public class Tester {
 //		System.out.println(QueryConfig.getInstance().getQueryTypeList().get(0));
 		
 		HashMap<String, String> inputProperty = new HashMap<String, String>();
-//		inputProperty.put("����", "V17176443862");
-		inputProperty.put("����", "5");
+		inputProperty.put("编号", "");
+		inputProperty.put("面额", "5");
+
 		Query query = new Query("Query1", inputProperty);
 		EntityDao entityDao = null;
 		try {
 			entityDao = new EntityDao();
 			ArrayList<Query> resultItem = entityDao.runAQuery(query);
-			System.out.println(resultItem.get(0).getOutputProperty().get("��������"));
+			System.out.println(resultItem.get(0).getOutputProperty().get("介质类型"));
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

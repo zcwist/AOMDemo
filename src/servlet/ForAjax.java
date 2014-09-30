@@ -2,21 +2,25 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
+import model.Query;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import util.Transformer;
-import config.EntityConfig;
 import config.QueryConfig;
 import config.RootPath;
+import dao.EntityDao;
 
 public class ForAjax extends HttpServlet {
 
@@ -84,8 +88,57 @@ public class ForAjax extends HttpServlet {
 			}
 			
 		}else if (command.equals("getQueryResult")){
+			String queryType = request.getParameter("QueryType");
 			try {
 				JSONObject queryData = new JSONObject(request.getParameter("QueryData"));
+				//do query
+				System.out.println(queryData);
+				HashMap<String, String> inputProperty = Transformer.json2Map(queryData);
+				System.out.println("Query from the request:");
+				for (String key:inputProperty.keySet()){
+					System.out.println(key + ":" + inputProperty.get(key));
+				}
+				
+				
+				HashMap<String, String> inputProperty2 = new HashMap<String, String>();
+				inputProperty2.put("编号", "");
+				inputProperty2.put("面额", "5");
+				System.out.println("Local query:");
+				for (String key:inputProperty2.keySet()){
+					System.out.println(key + ":" + inputProperty2.get(key));
+				}
+				
+//				if (compareMapByKeySet(inputProperty, inputProperty2)){
+//					System.out.println("Equal");
+//				}
+				
+				
+				Query query = new Query(queryType, inputProperty);
+				EntityDao entityDao = null;
+				try {
+					entityDao = new EntityDao();
+					ArrayList<Query> resultItem = entityDao.runAQuery(query);
+					System.out.println(resultItem.size());
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally{
+					entityDao.destroy();
+				}
+				
+				query = new Query(queryType, inputProperty2);
+				entityDao = null;
+				try {
+					entityDao = new EntityDao();
+					ArrayList<Query> resultItem = entityDao.runAQuery(query);
+					System.out.println(resultItem.size());
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally{
+					entityDao.destroy();
+				}
+				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -117,5 +170,50 @@ public class ForAjax extends HttpServlet {
 		// Put your code here
 		RootPath.getInstance().setRoot(getServletContext().getRealPath("/"));
 	}
+	
+	public boolean compareMapByKeySet(HashMap<String,String> map1,HashMap<String,String> map2){  
+		  
+        if(map1.size()!=map2.size()){    
+            return false;  
+        }  
+          
+          
+        String tmp1;  
+        String tmp2;  
+        boolean b=false;  
+          
+        for(String key:map1.keySet()){  
+            if(map2.containsKey(key)){  
+                tmp1=map1.get(key);  
+                tmp2=map2.get(key);  
+                  
+                if(null!=tmp1 && null!=tmp1){   
+                      
+                    if(tmp1.equals(tmp2)){  
+                        b=true;  
+                        continue;  
+                    }else{  
+                        b=false;  
+                        break;  
+                    }  
+                      
+                }else if(null==tmp1 && null==tmp2){    
+                    b=true;  
+                    continue;  
+                }else{  
+                    b=false;  
+                    break;  
+                }  
+                  
+                  
+            }else{  
+                b=false;  
+                break;  
+            }  
+              
+        }  
+  
+        return b;  
+    }
 
 }

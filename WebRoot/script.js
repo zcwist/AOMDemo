@@ -18,6 +18,14 @@ $(document).ready(function() {
 						console.log(propertyListData);
 						if (textStatus == 'success'){
 							$("#inputPropertyList").html(json2formGroup(propertyListData));
+							$("#submit").click(function(event) {
+								queryData = JSON.stringify(makeQueryData(propertyListData));
+								console.log(queryData);
+								$.post('http://localhost:8080/AOMDemo/servlet/ForAjax', {Command: 'getQueryResult', QueryType: queryType, QueryData: queryData}, function(data, textStatus, xhr) {
+									/*optional stuff to do after success */
+								});
+
+							});
 						}
 					});
 
@@ -38,22 +46,7 @@ $(document).ready(function() {
 			}
 		});
 	});
-	// $("#b01").click(function() {
-	// 	var data = {}
-	// 	// $.getJSON('http://localhost:8080/AOMDemo/servlet/ForAjax', function(json, textStatus) {
-	// 	// 		$("#myDiv").html(json);
 
-	// 	// 		console.log(json2formGroup(json));
-	// 	// 		$("#myDiv").html(json2formGroup(json))
-	// 	// });
-	// 	$.post('http://localhost:8080/AOMDemo/servlet/ForAjax', {Command: 'getPropertyList'}, function(data, textStatus, xhr) {
-	// 	/*optional stuff to do after success */
-	// 		console.log(data);
-	// 		if (textStatus == 'success'){
-	// 			$("#myDiv").html(json2formGroup(data));
-	// 		}
-	// 	});
-	// });
 	
 	function json2formGroup(json){
 		s = '<form role="form">';
@@ -63,7 +56,7 @@ $(document).ready(function() {
 			s += '<input type="text" class="form-control" + id="' + val + '" placeholder="">';
 			s += "</div>";
 			});
-		s += '<button type="submit" class="btn btn-default">查询</button>';
+		s += '<button type="button" class="btn btn-default" id="submit">查询</button>';
 		s += '</form>';
 		console.log(s);
 		return s;
@@ -77,8 +70,15 @@ $(document).ready(function() {
 		});
 		return s;
 	}
-	function test(){
-		console.log("hehe");
+
+	function makeQueryData(json){
+		s = {}; //query key and value
+		$.each(json.value, function(index, val) {
+			 /* iterate through array or object */
+			s[val] = $("#"+val).val();
+			console.log($("#"+val).val());
+		});
+		return s;
 	}
 	
 });

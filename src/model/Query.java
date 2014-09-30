@@ -18,9 +18,9 @@ public class Query {
 		ArrayList<String> inputPropertyList = QueryConfig.getInstance().getInputPropertyListByQueryType(queryType);
 		HashMap<String,String> temp = new HashMap<String,String>();
 		for (String key: inputPropertyList){
-			if (inputProperty.get(key) != null){
-				temp.put(key, inputProperty.get(key));
-			}
+//			if (inputProperty.get(key) != ""){
+			temp.put(key, inputProperty.get(key));
+//			}
 		}
 		this.inputProperty = temp;
 		this.outputPropertyList = QueryConfig.getInstance().getOutputPropertyListByQueryType(queryType);
@@ -42,9 +42,12 @@ public class Query {
 		BasicDBObject query = new BasicDBObject();
 		if (inputProperty != null){
 			for (String key: inputProperty.keySet()){
-				query.append("Properties." + key + ".Value", inputProperty.get(key));
+				if (!inputProperty.get(key).equals("")){
+					query.append("Properties." + key + ".Value", inputProperty.get(key));
+				}
 			}
 		}
+		System.out.println(query);
 		return query;
 	}
 	public void generateOutput(DBObject item){
