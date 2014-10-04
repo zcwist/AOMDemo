@@ -23,6 +23,9 @@ $(document).ready(function() {
 								console.log(queryData);
 								$.post('http://localhost:8080/AOMDemo/servlet/ForAjax', {Command: 'getQueryResult', QueryType: queryType, QueryData: queryData}, function(data, textStatus, xhr) {
 									/*optional stuff to do after success */
+									//render the table
+									$("#resultTable").html(renderTable(data));
+
 								});
 
 							});
@@ -79,6 +82,42 @@ $(document).ready(function() {
 			console.log($("#"+val).val());
 		});
 		return s;
+	}
+
+	function renderTable(json){
+		s = '<table class="table">';
+		// table head
+		s += '<tr>';
+		$.each(json.input, function(index, val) {
+			 /* iterate through array or object */
+			 s += '<th>' + index + '</th>';
+		});
+		$.each(json.output[0], function(index, val) {
+			 /* iterate through array or object */
+			 s += '<th>' + index + '</th>';
+		});
+		s += '</tr>';
+
+		//table content
+		$.each(json.output, function(index, val) {
+			s += '<tr>';
+			 /* iterate through array or object */
+			 $.each(json.input, function(index, val) {
+			 	 /* iterate through array or object */
+			 	 s += '<td>' + val + '</td'>
+
+			 });
+			 $.each(val, function(index, val) {
+			 	 /* iterate through array or object */
+			 	 s += '<td>' + val + '</td'>
+			 });
+			 s += '</tr>';
+		});
+
+		s += '</table>';
+		return s;
+
+		
 	}
 	
 });

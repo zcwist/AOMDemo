@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Query;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -92,33 +93,24 @@ public class ForAjax extends HttpServlet {
 			try {
 				JSONObject queryData = new JSONObject(request.getParameter("QueryData"));
 				//do query
-				System.out.println(queryData);
+
 				HashMap<String, String> inputProperty = Transformer.json2Map(queryData);
-				System.out.println("Query from the request:");
-				for (String key:inputProperty.keySet()){
-					System.out.println(key + ":" + inputProperty.get(key));
-				}
-				
-				
-				HashMap<String, String> inputProperty2 = new HashMap<String, String>();
-				inputProperty2.put("编号", "");
-				inputProperty2.put("面额", "5");
-				System.out.println("Local query:");
-				for (String key:inputProperty2.keySet()){
-					System.out.println(key + ":" + inputProperty2.get(key));
-				}
-				
-//				if (compareMapByKeySet(inputProperty, inputProperty2)){
-//					System.out.println("Equal");
-//				}
 				
 				
 				Query query = new Query(queryType, inputProperty);
 				EntityDao entityDao = null;
 				try {
+					JSONObject queryResult = new JSONObject();
+					queryResult.put("input", queryData);
+					JSONArray outputResult = new JSONArray();
 					entityDao = new EntityDao();
 					ArrayList<Query> resultItem = entityDao.runAQuery(query);
-					System.out.println(resultItem.size());
+					for (Query queryItem : resultItem) {
+						JSONObject outputItem = new JSONObject(queryItem.getOutputPropertyList());
+						outputResult.put(outputItem);
+						
+					}
+					queryResult.put("output", outputResult);
 				} catch (UnknownHostException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -126,18 +118,6 @@ public class ForAjax extends HttpServlet {
 					entityDao.destroy();
 				}
 				
-				query = new Query(queryType, inputProperty2);
-				entityDao = null;
-				try {
-					entityDao = new EntityDao();
-					ArrayList<Query> resultItem = entityDao.runAQuery(query);
-					System.out.println(resultItem.size());
-				} catch (UnknownHostException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} finally{
-					entityDao.destroy();
-				}
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

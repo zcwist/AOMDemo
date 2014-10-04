@@ -32,6 +32,11 @@
 					<!-- Input Property List here -->
 				</div>
 			</div>
+			<div class="row">
+				<div id="resultTable">
+					<!-- Render the result table here -->
+				</div>
+			</div>
 		</div>
 
 
