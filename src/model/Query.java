@@ -47,19 +47,30 @@ public class Query {
 				}
 			}
 		}
-		System.out.println(query);
+//		System.out.println(query);
 		return query;
 	}
-	public void generateOutput(DBObject item){
-		HashMap<String, String> outputProperty = new HashMap<String, String>();
+	public void generateResult(DBObject item){
+		
 		BasicDBObject properties = (BasicDBObject) item.get("Properties");
-		System.out.println(properties.toString());
+		//generate a full input property
+		HashMap<String,String> inputProperty = new HashMap<String, String>();
+		for (String propertyName: this.inputProperty.keySet()){
+//			System.out.println(propertyName);
+			BasicDBObject aProperty = (BasicDBObject) properties.get(propertyName);
+			inputProperty.put(propertyName, aProperty.get("Value").toString());
+		}
+		
+		HashMap<String, String> outputProperty = new HashMap<String, String>();
+		
+//		System.out.println(properties.toString());
 		
 		for (String propertyName: outputPropertyList){
 			
 			BasicDBObject aProperty = (BasicDBObject) properties.get(propertyName);
 			outputProperty.put(propertyName, aProperty.get("Value").toString());
 		}
+		this.inputProperty = inputProperty;
 		this.outputProperty = outputProperty;
 		
 	}

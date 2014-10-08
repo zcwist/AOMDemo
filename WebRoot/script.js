@@ -24,7 +24,14 @@ $(document).ready(function() {
 								$.post('http://localhost:8080/AOMDemo/servlet/ForAjax', {Command: 'getQueryResult', QueryType: queryType, QueryData: queryData}, function(data, textStatus, xhr) {
 									/*optional stuff to do after success */
 									//render the table
-									$("#resultTable").html(renderTable(data));
+									console.log(data);
+									if (data.result.length == 0){
+										console.log("Empty");
+										alert("没有满足条件的结果");
+									}else{
+										$("#resultTable").html(renderTable(data));
+									}
+									
 
 								});
 
@@ -85,31 +92,32 @@ $(document).ready(function() {
 	}
 
 	function renderTable(json){
+		console.log("Rendering the table");
 		s = '<table class="table">';
 		// table head
 		s += '<tr>';
-		$.each(json.input, function(index, val) {
+		$.each(json.result[0].input, function(index, val) {
 			 /* iterate through array or object */
 			 s += '<th>' + index + '</th>';
 		});
-		$.each(json.output[0], function(index, val) {
+		$.each(json.result[0].output, function(index, val) {
 			 /* iterate through array or object */
 			 s += '<th>' + index + '</th>';
 		});
 		s += '</tr>';
 
 		//table content
-		$.each(json.output, function(index, val) {
+		$.each(json.result, function(index, val) {
 			s += '<tr>';
 			 /* iterate through array or object */
-			 $.each(json.input, function(index, val) {
+			 $.each(val.input, function(index, val) {
 			 	 /* iterate through array or object */
-			 	 s += '<td>' + val + '</td'>
+			 	 s += '<td>' + val + '</td>'
 
 			 });
-			 $.each(val, function(index, val) {
+			 $.each(val.output, function(index, val) {
 			 	 /* iterate through array or object */
-			 	 s += '<td>' + val + '</td'>
+			 	 s += '<td>' + val + '</td>'
 			 });
 			 s += '</tr>';
 		});

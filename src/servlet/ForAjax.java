@@ -101,16 +101,23 @@ public class ForAjax extends HttpServlet {
 				EntityDao entityDao = null;
 				try {
 					JSONObject queryResult = new JSONObject();
-					queryResult.put("input", queryData);
 					JSONArray outputResult = new JSONArray();
 					entityDao = new EntityDao();
 					ArrayList<Query> resultItem = entityDao.runAQuery(query);
 					for (Query queryItem : resultItem) {
-						JSONObject outputItem = new JSONObject(queryItem.getOutputPropertyList());
-						outputResult.put(outputItem);
+						
+						JSONObject intputItem = new JSONObject(queryItem.getInputProperty());
+						JSONObject outputItem = new JSONObject(queryItem.getOutputProperty());
+						JSONObject returnItem = new JSONObject();
+						returnItem.put("input", intputItem);
+						returnItem.put("output", outputItem);
+
+						outputResult.put(returnItem);
 						
 					}
-					queryResult.put("output", outputResult);
+					System.out.println(outputResult.toString());
+					queryResult.put("result", outputResult);
+					out.println(queryResult.toString());
 				} catch (UnknownHostException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
